@@ -1,0 +1,133 @@
+﻿<Window x:Class="CoordinatesDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Преобразование координат"
+        Width="920"
+        Height="620"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="540" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Canvas x:Name="WorkCanvas"
+                Grid.Column="0"
+                Background="WhiteSmoke"
+                ClipToBounds="True">
+
+            <TextBlock Canvas.Left="15"
+                       Canvas.Top="15"
+                       Text="Перемещай элементы правой кнопкой мыши." />
+
+            <Ellipse x:Name="MyEllipse"
+                     Canvas.Left="140"
+                     Canvas.Top="110"
+                     Width="120"
+                     Height="80"
+                     Fill="RoyalBlue"
+                     RenderTransformOrigin="0.5,0.5"
+                     PreviewMouseRightButtonDown="Element_MouseDown"
+                     PreviewMouseMove="Element_MouseMove"
+                     PreviewMouseRightButtonUp="Element_MouseUp">
+
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="EllipseScale"
+                                        ScaleX="1"
+                                        ScaleY="1" />
+                        <RotateTransform x:Name="EllipseRotate"
+                                         Angle="0" />
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+
+            <Button x:Name="DemoButton"
+                    Canvas.Left="70"
+                    Canvas.Top="320"
+                    Width="140"
+                    Height="40"
+                    Content="Кнопка"
+                    PreviewMouseRightButtonDown="Element_MouseDown"
+                    PreviewMouseMove="Element_MouseMove"
+                    PreviewMouseRightButtonUp="Element_MouseUp" />
+
+            <TextBox x:Name="DemoTextBox"
+                     Canvas.Left="270"
+                     Canvas.Top="320"
+                     Width="170"
+                     Height="35"
+                     Text="Поле ввода"
+                     PreviewMouseRightButtonDown="Element_MouseDown"
+                     PreviewMouseMove="Element_MouseMove"
+                     PreviewMouseRightButtonUp="Element_MouseUp" />
+        </Canvas>
+
+        <StackPanel Grid.Column="1" Margin="20,0,0,0">
+            <TextBlock Text="Преобразования эллипса"
+                       FontSize="18"
+                       Margin="0,0,0,10" />
+
+            <TextBlock Text="Поворот: от 0 до 360 градусов" />
+
+            <Slider x:Name="AngleSlider"
+                    Minimum="0"
+                    Maximum="360"
+                    Value="0"
+                    ValueChanged="Transform_ValueChanged"
+                    Margin="0,5,0,15" />
+
+            <TextBlock Text="Масштаб: от 0,5 до 2" />
+
+            <Slider x:Name="ScaleSlider"
+                    Minimum="0.5"
+                    Maximum="2"
+                    Value="1"
+                    ValueChanged="Transform_ValueChanged"
+                    Margin="0,5,0,15" />
+
+            <TextBlock Text="Координаты выбранного элемента"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10" />
+
+            <TextBlock x:Name="CoordinatesText"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,10" />
+
+            <Button Content="Показать координаты"
+                    Click="ShowCoordinates_Click"
+                    Margin="0,0,0,20" />
+
+            <TextBlock Text="Точка в координатах окна"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="X:" VerticalAlignment="Center" />
+                <TextBox x:Name="GlobalXTextBox"
+                         Text="200"
+                         Width="75"
+                         Margin="5,0,15,0" />
+
+                <TextBlock Text="Y:" VerticalAlignment="Center" />
+                <TextBox x:Name="GlobalYTextBox"
+                         Text="150"
+                         Width="75"
+                         Margin="5,0,0,0" />
+            </StackPanel>
+
+            <Button Content="Перевести в локальные"
+                    Click="ConvertPoint_Click"
+                    Margin="0,10,0,10" />
+
+            <TextBlock x:Name="ConvertedPointText"
+                       TextWrapping="Wrap" />
+
+            <TextBlock Text="Чтобы выбрать элемент, нажми на него правой кнопкой мыши."
+                       TextWrapping="Wrap"
+                       Margin="0,20,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>
